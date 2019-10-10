@@ -7,6 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  productList: Array<any> = [
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 },
+    { productName:"Product A", productImage:"./assets/images/clothing.jpg", productPrice: 200 }
+
+  ]
   constructor() { }
 
   ngOnInit() {

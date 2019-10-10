@@ -1,1 +1,75 @@
-<p>home works!</p>
+<div class="application-wrapper">
+    <div class="custom-container-fluid">
+        <div class="custom-row">
+            <div class="custom-col-40">
+                <div class="cart-section">
+                    <div class="chart-section-header">
+                        <ul class="custom-cart-headers">
+                            <li>Product</li>
+                            <li>Price</li>
+                            <li>Quantity</li>
+                            <li>Total</li>
+                        </ul>
+                    </div>
+                    <div class="chart-section-body">
+                        <div class="no-products">
+                                There are no products
+                        </div>
+                    </div>
+                    <div class="chart-section-footer">
+                        <div class=""></div>
+                        <div class="action-buttons-group">
+                            <button mat-raised-button color="warn" class="cancel-sale">Cancel Sale</button>
+                            <button mat-raised-button color="primary" class="proceed-sale">Process sale</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-col-60">
+                <div class="product-section">
+                    <div class="product-section-header">
+                        <ul>
+                            <li>
+                                <a><i class="fas fa-home"></i></a>
+                            </li>
+                            <li>
+                                <a>Computers</a>
+                            </li>
+                            <li>
+                                <a>Fruits</a>
+                            </li>
+                            <li>
+                                <a>Clothing</a>
+                            </li>
+                            <li>
+                                <a>Services</a>
+                            </li>
+                            <li>
+                                <a>Burger</a>
+                            </li>
+                            <li>
+                                <a>Pizza</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="product-section-body">
+                        <div class="product-search">
+                            <input type="text" placeholder="Search..">
+                            <a title="Search Product"><i class="fas fa-search"></i></a>
+                        </div>
+                        <div class="products">
+                            <ul>
+                                <li *ngFor="let product of productList">
+                                    <div class="transparent-bg-color">
+                                        <span class="product-name">{{product.productName}}</span>
+                                    </div>
+                                    <img src="{{product.productImage}}" alt="{{product.productName}}">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
