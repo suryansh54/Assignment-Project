@@ -10,6 +10,9 @@ import { HistoryComponent } from './history/history.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import { ProductDataServiceService } from './service/product-data-service.service';
+import { AuthGuardService } from './service/auth.guard.service';
 
 
 @NgModule({
@@ -25,9 +28,20 @@ import {MatButtonModule} from '@angular/material/button';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule
   ],
-  providers: [],
+  providers: [ProductDataServiceService, AuthGuardService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(){
+    this.userData();
+  }
+  userData() {
+    sessionStorage.setItem('userToken','asdasd');
+    sessionStorage.setItem('userRole','admin');
+    sessionStorage.setItem('userName','Suryansh');
+    sessionStorage.setItem('userExpiryTime','3600');
+  }
+}

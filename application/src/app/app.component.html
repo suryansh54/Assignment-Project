@@ -1,1 +1,20 @@
-<router-outlet></router-outlet>
+<div class="custom-header-section">
+    <div class="header-wrapper">
+        <div class="logo">
+            <span>Point to sale</span>
+        </div>
+        <div class="user-option">
+            <ul>
+                <li>
+                    <a><i class="fas fa-user"></i> {{userName}}</a>
+                </li>
+                <li>
+                    <a><i class="fas fa-sign-out-alt"></i> Log out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="custom-body-section">
+    <router-outlet></router-outlet>
+</div>

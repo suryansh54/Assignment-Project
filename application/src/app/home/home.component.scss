@@ -21,7 +21,7 @@
     padding: 10px;
 }
 .chart-section-body {
-    height: calc(100% - 90px);
+    height: calc(100% - 250px);
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -37,7 +37,7 @@
     .cart-section,
     .product-section {
         background: #EBEEEF;
-        height: calc(100vh - 20px);
+        height: calc(100vh - 78px);
     }
     .product-section-header {
         width: 100%;
@@ -52,7 +52,7 @@
         }
         a {
             display: block;
-            padding: 5px 10px;
+            padding: 6px 20px;
             font-size: 12px;
             text-transform: uppercase;
             background: #E2E2E2;
@@ -61,6 +61,7 @@
             font-weight: 600;
             border-bottom: 2px solid #4CAF50;
             cursor: pointer;
+            letter-spacing: 0.5px;
         }
     }
 }
@@ -152,6 +153,7 @@
     list-style: none;
     display: block;
     padding-left: 0;
+    margin-top: 0;
 }
 
 .products ul li {
@@ -181,4 +183,196 @@
     border-radius: 16px;
     background: rgba(33, 150, 243, 0.6);
     font-weight: 600;
+}
+
+.no-product-found {
+    background: #FFC107;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.add-product a {
+    color: #333;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px;
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+}
+
+.add-product a:hover {
+    background: #e2e2e2;
+}
+
+.add-product:before,.add-product:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.products ul {
+    height: calc(100vh - 210px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.add-product-form{
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(100%);
+    transition: transform 0.2s linear;
+    position: fixed;
+    width: 50%;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background: #ebeeef;
+}
+
+.add-product-form.open {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0%);
+    transition: transform 0.2s linear;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.48);
+}
+
+.closeAddProduct {
+    float: right;
+    padding: 10px 20px;
+    color: #666;
+    font-size: 15px;
+    width: 50px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.add-product-form-area {
+    padding: 10px 20px;
+}
+
+.add-product-form-area h2 {
+    font-weight: 100;
+    border-left: 5px solid #2196f3;
+    padding-left: 10px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.form-area-wrapper {
+    padding: 25px 50px;
+}
+
+.action-button {
+    padding: 10px 0;
+    text-align: right;
+}
+
+.action-button button {
+    margin-left: 20px;
+}
+
+.cancel-product {
+    background: none !important;
+    color: #6a6a6a !important;
+    box-shadow: none !important;
+    font-weight: 400;
+}
+
+.custom-product-options-menu{
+    background: #ebeeef;
+    width: 200px;
+    height: auto;
+    display: block;
+    position: fixed;
+    box-shadow: 1px 1px 5px #000;
+    border-radius: 2px;
+}
+
+.custom-product-options-menu ul {
+    padding-left: 0;
+    list-style: none;
+    display: block;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.custom-product-options-menu ul li {
+    display: block;
+}
+
+.custom-product-options-menu ul li a {
+    padding: 5px 10px;
+    display: block;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.custom-product-options-menu ul li a:hover {
+    background: #b8b8b8;
+}
+
+.close-context:hover {
+    background: #f44336 !important;
+    color: #fff;
+}
+
+.custom-total-sextion ul {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+}
+
+.custom-total-sextion ul li {
+    display: block;
+    border-bottom: 1px solid #c9c9c9;
+    font-size: 13px;
+    font-weight: 600;
+    overflow: hidden;
+}
+
+.custom-total-sextion ul li .left-side {
+    width: 40%;
+    float: left;
+    background: #f2f2f2;
+    padding: 8px 10px;
+}
+
+.custom-total-sextion ul li .right-side {
+    width: 60%;
+    float: right;
+    background: #ffffff;
+    padding: 8px 10px;
+}
+
+.custom-total-sextion ul li:last-child {
+    border-bottom: 0;
+}
+
+.custom-total-sextion ul li .right-side i {
+    color: #009688;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.custom-total-sextion ul li .right-side:before,.custom-total-sextion ul li .right-side:after {
+    clear: both;
+    display: block;
+    content: "";
+}
+
+.custom-total-sextion ul li .right-side b {
+    float: right;
+}
+
+.action-buttons-group {
+    margin-top: 20px;
 }

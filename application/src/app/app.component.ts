@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'cart-assignment';
+  userName: string;
+
+  getUserName(){
+    return sessionStorage.getItem('userName');
+  }
+
+  constructor() {
+    this.userName = this.getUserName();
+  }
 }

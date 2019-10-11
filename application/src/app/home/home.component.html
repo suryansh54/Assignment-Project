@@ -17,7 +17,26 @@
                         </div>
                     </div>
                     <div class="chart-section-footer">
-                        <div class=""></div>
+                        <div class="custom-total-sextion">
+                            <ul>
+                                <li>
+                                    <span class="left-side">SubTotal</span>
+                                    <span class="right-side">0.000 EUR <b>0 Items</b></span>
+                                </li>
+                                <li>
+                                    <span class="left-side">Vat tax</span>
+                                    <span class="right-side">N/A <b>EUR</b></span>
+                                </li>
+                                <li>
+                                    <span class="left-side">Discount</span>
+                                    <span class="right-side">N/A <b>EUR</b></span>
+                                </li>
+                                <li>
+                                    <span class="left-side">SubTotal</span>
+                                    <span class="right-side"><i>0.000 EUR</i></span>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="action-buttons-group">
                             <button mat-raised-button color="warn" class="cancel-sale">Cancel Sale</button>
                             <button mat-raised-button color="primary" class="proceed-sale">Process sale</button>
@@ -30,46 +49,101 @@
                     <div class="product-section-header">
                         <ul>
                             <li>
-                                <a><i class="fas fa-home"></i></a>
+                                <a (click)="filterCategory('home')"><i class="fas fa-home"></i></a>
                             </li>
-                            <li>
-                                <a>Computers</a>
-                            </li>
-                            <li>
-                                <a>Fruits</a>
-                            </li>
-                            <li>
-                                <a>Clothing</a>
-                            </li>
-                            <li>
-                                <a>Services</a>
-                            </li>
-                            <li>
-                                <a>Burger</a>
-                            </li>
-                            <li>
-                                <a>Pizza</a>
+                            <li *ngFor="let category of productCategory">
+                                <a (click)="filterCategory(category)">{{category}}</a>
                             </li>
                         </ul>
                     </div>
                     <div class="product-section-body">
                         <div class="product-search">
-                            <input type="text" placeholder="Search..">
+                            <input type="text" placeholder="Search.." (keyup)="productSearch($event)">
                             <a title="Search Product"><i class="fas fa-search"></i></a>
                         </div>
                         <div class="products">
-                            <ul>
-                                <li *ngFor="let product of productList">
-                                    <div class="transparent-bg-color">
-                                        <span class="product-name">{{product.productName}}</span>
-                                    </div>
-                                    <img src="{{product.productImage}}" alt="{{product.productName}}">
-                                </li>
-                            </ul>
+                            <div class="add-product">
+                                <a href="javascript:;" (click)="addProductModel()"><i class="fas fa-plus"></i> Add Product</a>
+                            </div>
+                            <div class="no-product-found" *ngIf="productList.length == 0 else products">No Product Found</div>
+                            <ng-template #products>
+                                <ul>
+                                    <li *ngFor="let product of productList">
+                                        <a (contextmenu)="productOption($event)">
+                                            <div class="transparent-bg-color">
+                                                <span class="product-name" [style.background]="productBackgroundColor">{{product.productName}}</span>
+                                            </div>
+                                            <img src="{{product.productImage}}" alt="{{product.productName}}">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="custom-product-options-menu" *ngIf="showProductOption" [style.left.px]="left" [style.top.px]="top">
+    <ul>
+        <li>
+            <a>Add to cart</a>
+        </li>
+        <li>
+            <a (click)="productInformation()">Product information</a>
+        </li>
+        <li>
+            <a (click)="updateProduct()">Update product</a>
+        </li>
+        <li>
+            <a (click)="deleteProduct()">Delete Product</a>
+        </li>
+        <li>
+            <a class="close-context" (click)="closeContext()">Close menu</a>
+        </li>
+    </ul>
+</div>
+<div class="add-product-form" [class.open]="openModel == true">
+    <div class="closeAddProduct" title="Close" (click)="closeAddProductModel()"><i class="fas fa-times"></i></div>
+    <div class="add-product-form-area">
+        <h2>{{ modelHeading }}</h2>
+        <div class="form-area-wrapper">
+                <form class="example-form">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Product name">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Product Category">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Unit price of product">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Available quantity">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Image">
+                    </mat-form-field>
+
+                    <div class="action-button" *ngIf="modelBoxType == 'add'">
+                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeAddProductModel()">Cancel</button>
+                        <button type="button" mat-raised-button color="primary" class="add-product">Add Product</button>
+                        <button type="button" mat-raised-button color="primary" class="add-product-and-close">Add Product and close</button>
+                    </div>
+                    <div class="action-button" *ngIf="modelBoxType == 'update'">
+                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeAddProductModel()">Cancel</button>
+                        <button type="button" mat-raised-button color="primary" class="add-product-and-close">Update Product and close</button>
+                    </div>
+                    <div class="action-button" *ngIf="modelBoxType == 'delete'">
+                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeAddProductModel()">Cancel</button>
+                        <button type="button" mat-raised-button color="warn" class="add-product-and-close">Delete</button>
+                    </div>
+                </form>
         </div>
     </div>
 </div>

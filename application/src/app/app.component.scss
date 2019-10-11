@@ -1,0 +1,66 @@
+.custom-header-section {
+    background: #2196F3;
+}
+
+.header-wrapper {
+    overflow: hidden;
+}
+
+.logo {
+    float: left;
+}
+
+.user-option {
+    float: right;
+}
+
+.user-option ul {
+    padding-left: 0;
+    list-style: none;
+    display: block;
+    margin: 0;
+    padding-right: 15px;
+}
+
+.user-option ul li {
+    display: inline-block;
+}
+
+.logo span {
+    display: block;
+    padding: 10px;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 100;
+    letter-spacing: 0.5px;
+}
+
+.user-option ul li {
+    display: inline-block;
+}
+
+.user-option ul li a {
+    padding: 13px;
+    display: block;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    i {
+        margin-right: 5px;
+    }
+}
+
+.user-option ul li a:hover {
+    background: #4a4a4a;
+}
+
+.custom-header-section {
+    height: 48px;
+    margin-bottom: 10px;
+}
+
+.custom-body-section {
+    height: calc(100vh - 58px);
+}
