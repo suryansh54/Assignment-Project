@@ -12,9 +12,30 @@
                         </ul>
                     </div>
                     <div class="chart-section-body">
-                        <div class="no-products">
+                        <div class="no-products" *ngIf="productInCart.length==0 else productsInCartBlock">
                                 There are no products
                         </div>
+                        <ng-template #productsInCartBlock>
+                            <ul>
+                                <li *ngFor="let item of productInCart">
+                                    <div class="cart-item">
+                                        <div><span class="delete-product-from-cart" title="Delete from cart"><i class="fas fa-times"></i></span></div>
+                                        <div class="product-name-cart">{{item.productName}}</div>
+                                        <div class="product-price-cart">{{item.productPrice}}</div>
+                                        <div class="product-quantity-cart">
+                                            <div class="cart-product-quantity">
+                                                <div class="minus-item"><i class="fas fa-minus"></i></div>
+                                                <div class="input-quantity-item">
+                                                    <input type="text" value="1" type="number">
+                                                </div>
+                                                <div class="plus-item"><i class="fas fa-plus"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="product-price-cart">{{item.productPrice}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ng-template>
                     </div>
                     <div class="chart-section-footer">
                         <div class="custom-total-sextion">
@@ -63,6 +84,7 @@
                         </div>
                         <div class="products">
                             <div class="add-product">
+                                <div class="total-items">{{ productList.length }} products(s), Filter: {{filter}}</div>
                                 <a href="javascript:;" (click)="addProductModel()"><i class="fas fa-plus"></i> Add Product</a>
                             </div>
                             <div class="no-product-found" *ngIf="productList.length == 0 else products">No Product Found</div>
@@ -71,7 +93,7 @@
                                     <li *ngFor="let product of productList">
                                         <a (contextmenu)="productOption($event)">
                                             <div class="transparent-bg-color">
-                                                <span class="product-name" [style.background]="productBackgroundColor">{{product.productName}}</span>
+                                                <span class="product-name" id="{{product.id}}" [style.background]="productBackgroundColor">{{product.productName}}</span>
                                             </div>
                                             <img src="{{product.productImage}}" alt="{{product.productName}}">
                                         </a>
@@ -88,16 +110,16 @@
 <div class="custom-product-options-menu" *ngIf="showProductOption" [style.left.px]="left" [style.top.px]="top">
     <ul>
         <li>
-            <a>Add to cart</a>
+            <a (click)="addToCart(selectedContextProductID)">Add to cart</a>
         </li>
         <li>
-            <a (click)="productInformation()">Product information</a>
+            <a (click)="productInformation(selectedContextProductID)">Product information</a>
         </li>
         <li>
-            <a (click)="updateProduct()">Update product</a>
+            <a (click)="updateProduct(selectedContextProductID)">Update product</a>
         </li>
         <li>
-            <a (click)="deleteProduct()">Delete Product</a>
+            <a (click)="deleteProduct(selectedContextProductID)">Delete Product</a>
         </li>
         <li>
             <a class="close-context" (click)="closeContext()">Close menu</a>
@@ -105,7 +127,7 @@
     </ul>
 </div>
 <div class="add-product-form" [class.open]="openModel == true">
-    <div class="closeAddProduct" title="Close" (click)="closeAddProductModel()"><i class="fas fa-times"></i></div>
+    <div class="closeAddProduct" title="Close" (click)="closeModel()"><i class="fas fa-times"></i></div>
     <div class="add-product-form-area">
         <h2>{{ modelHeading }}</h2>
         <div class="form-area-wrapper">
@@ -131,16 +153,16 @@
                     </mat-form-field>
 
                     <div class="action-button" *ngIf="modelBoxType == 'add'">
-                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeAddProductModel()">Cancel</button>
+                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeModel()">Cancel</button>
                         <button type="button" mat-raised-button color="primary" class="add-product">Add Product</button>
                         <button type="button" mat-raised-button color="primary" class="add-product-and-close">Add Product and close</button>
                     </div>
                     <div class="action-button" *ngIf="modelBoxType == 'update'">
-                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeAddProductModel()">Cancel</button>
+                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeModel()">Cancel</button>
                         <button type="button" mat-raised-button color="primary" class="add-product-and-close">Update Product and close</button>
                     </div>
                     <div class="action-button" *ngIf="modelBoxType == 'delete'">
-                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeAddProductModel()">Cancel</button>
+                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeModel()">Cancel</button>
                         <button type="button" mat-raised-button color="warn" class="add-product-and-close">Delete</button>
                     </div>
                 </form>

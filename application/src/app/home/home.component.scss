@@ -181,7 +181,7 @@
     justify-content: center;
     padding-top: 10px;
     border-radius: 16px;
-    background: rgba(33, 150, 243, 0.6);
+    background: #2196f399;
     font-weight: 600;
 }
 
@@ -375,4 +375,112 @@ mat-form-field {
 
 .action-buttons-group {
     margin-top: 20px;
+}
+
+.total-items {
+    float: left;
+    padding: 10px 30px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.chart-section-body li {
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.chart-section-body ul {
+    padding-left: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.chart-section-body .cart-item > li {
+    float: left;
+}
+
+.chart-section-body li .cart-item {
+    overflow: hidden;
+    padding: 5px 15px;
+    font-size: 14px;
+    line-height: 24px;
+    color: #565656;
+}
+
+.chart-section-body li .cart-item > div {
+    float: left;
+}
+
+.chart-section-body li .cart-item > div:nth-child(1) {
+    width: 10%;
+    text-align:center;
+}
+
+.chart-section-body li .cart-item > div:nth-child(2) {
+    width: 30%;
+}
+
+.chart-section-body li .cart-item > div:nth-child(3) {
+    width: 15%;
+}
+
+.chart-section-body li .cart-item > div:nth-child(4) {
+    width: 25%;
+    text-align:right;
+}
+
+.chart-section-body li .cart-item > div:nth-child(5) {
+    width: 20%;
+    text-align:right;
+}
+
+.delete-product-from-cart {
+    width: 20px !important;
+    height: 20px;
+    background: #F44336;
+    display: block;
+    border-radius: 100%;
+    color: #fff;
+    user-select: none;
+    font-size: 12px;
+    line-height: 20px;
+    cursor: pointer;
+    margin-top: 3px;
+}
+
+.cart-product-quantity {
+    overflow: hidden;
+}
+
+.cart-product-quantity > div {
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+
+.cart-product-quantity > div input {
+    width: 40px;
+    height: 25px;
+    text-align: center;
+}
+.cart-product-quantity > div input::-webkit-outer-spin-button,
+.cart-product-quantity > div input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
+    border: 1px solid lightgrey;
+}
+
+.cart-product-quantity > div input[type=number] {
+    -moz-appearance:textfield; 
+}
+
+.minus-item,.plus-item {
+    background: #838383;
+    font-size: 12px;
+    width: 25px !important;
+    height: 25px;
+    color: #fff;
+    line-height: 25px;
+    cursor: pointer;
 }
