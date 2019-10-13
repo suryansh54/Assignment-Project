@@ -19,19 +19,19 @@
                             <ul>
                                 <li *ngFor="let item of productInCart">
                                     <div class="cart-item">
-                                        <div><span class="delete-product-from-cart" title="Delete from cart"><i class="fas fa-times"></i></span></div>
+                                        <div><span class="delete-product-from-cart" title="Delete from cart" (click)=deleteCart(item.id)><i class="fas fa-times"></i></span></div>
                                         <div class="product-name-cart">{{item.productName}}</div>
                                         <div class="product-price-cart">{{item.productPrice}}</div>
                                         <div class="product-quantity-cart">
                                             <div class="cart-product-quantity">
-                                                <div class="minus-item"><i class="fas fa-minus"></i></div>
+                                                <div class="minus-item" [class.disabled]="cartInput==0" (click)="plusMinusCart($event, item.id, 'minus')"><i class="fas fa-minus"></i></div>
                                                 <div class="input-quantity-item">
-                                                    <input type="text" value="1" type="number">
+                                                    <input type="text" value="1" type="number" value="{{item.cartQuantity}}" (keyup)="dynamicProductCartInput($event, item.id)" (change)="dynamicProductCartInput($event, item.id)">
                                                 </div>
-                                                <div class="plus-item"><i class="fas fa-plus"></i></div>
+                                                <div class="plus-item" (click)="plusMinusCart($event, item.id, 'plus')"><i class="fas fa-plus"></i></div>
                                             </div>
                                         </div>
-                                        <div class="product-price-cart">{{item.productPrice}}</div>
+                                        <div class="product-price-cart">{{item.totalPrice}}</div>
                                     </div>
                                 </li>
                             </ul>
@@ -42,7 +42,7 @@
                             <ul>
                                 <li>
                                     <span class="left-side">SubTotal</span>
-                                    <span class="right-side">0.000 EUR <b>0 Items</b></span>
+                                    <span class="right-side">{{cartTotalValue | currency:'EUR'}} <b>{{totalItemInCart}} Items</b></span>
                                 </li>
                                 <li>
                                     <span class="left-side">Vat tax</span>
@@ -54,7 +54,7 @@
                                 </li>
                                 <li>
                                     <span class="left-side">SubTotal</span>
-                                    <span class="right-side"><i>0.000 EUR</i></span>
+                                    <span class="right-side"><i>{{cartTotalValue | currency:'EUR'}}</i></span>
                                 </li>
                             </ul>
                         </div>
@@ -110,7 +110,7 @@
 <div class="custom-product-options-menu" *ngIf="showProductOption" [style.left.px]="left" [style.top.px]="top">
     <ul>
         <li>
-            <a (click)="addToCart(selectedContextProductID)">Add to cart</a>
+            <a (click)="addToCart(selectedContextProductID)" [class.disabled]="alreadyInCart == true">Add to cart<span *ngIf="alreadyInCart == true" class="already-carted">Already carted</span></a>
         </li>
         <li>
             <a (click)="productInformation(selectedContextProductID)">Product information</a>
@@ -131,41 +131,61 @@
     <div class="add-product-form-area">
         <h2>{{ modelHeading }}</h2>
         <div class="form-area-wrapper">
-                <form class="example-form">
+            <div class="action-button" *ngIf="modelBoxType == 'add'">
+                <form class="example-form" [formGroup]="addProductItems">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Product name">
+                        <input required matInput placeholder="Product name" formControlName="productName">
                     </mat-form-field>
                     
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Product Category">
+                        <input required matInput placeholder="Product Category" formControlName="productCategory">
                     </mat-form-field>
 
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Unit price of product">
+                        <input required matInput type="number" placeholder="Unit price of product" formControlName="productUnitPrice">
                     </mat-form-field>
 
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Available quantity">
+                        <input required matInput type="number" placeholder="Available quantity" formControlName="productAvailableQuantity">
                     </mat-form-field>
 
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Image">
+                        <input matInput placeholder="Image (CDN Link)" formControlName="productImage" readonly value="computer.jpg">
                     </mat-form-field>
-
-                    <div class="action-button" *ngIf="modelBoxType == 'add'">
-                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeModel()">Cancel</button>
-                        <button type="button" mat-raised-button color="primary" class="add-product">Add Product</button>
-                        <button type="button" mat-raised-button color="primary" class="add-product-and-close">Add Product and close</button>
-                    </div>
-                    <div class="action-button" *ngIf="modelBoxType == 'update'">
-                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeModel()">Cancel</button>
-                        <button type="button" mat-raised-button color="primary" class="add-product-and-close">Update Product and close</button>
-                    </div>
-                    <div class="action-button" *ngIf="modelBoxType == 'delete'">
-                        <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeModel()">Cancel</button>
-                        <button type="button" mat-raised-button color="warn" class="add-product-and-close">Delete</button>
-                    </div>
+                    <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeModel()">Cancel</button>
+                    <button type="button" [disabled]="!addProductItems.valid" mat-raised-button color="primary" class="add-product-and-close" (click)="addProductSubmit()">Add Product and close</button>
                 </form>
+            </div>
+            <div class="action-button" *ngIf="modelBoxType == 'update'">
+                <form class="example-form" [formGroup]="updateProductItems">
+                    <mat-form-field class="example-full-width">
+                        <input required matInput placeholder="Product name" formControlName="productName">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="example-full-width">
+                        <input required matInput placeholder="Product Category" formControlName="productCategory">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input required matInput type="number" placeholder="Unit price of product" formControlName="productUnitPrice">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input required matInput type="number" placeholder="Available quantity" formControlName="productAvailableQuantity">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Image (CDN Link)" formControlName="productImage" readonly value="computer.jpg">
+                    </mat-form-field>
+                    <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeModel()">Cancel</button>
+                    <button type="button" [disabled]="!updateProductItems.valid" mat-raised-button color="primary" class="add-product-and-close" (click)="updateProductSubmit()">Update Product and close</button>
+                </form>
+            </div>
+            <div class="action-button" *ngIf="modelBoxType == 'delete'">
+                <h3 class="model-heading">Are you sure you want to delete?</h3>
+                <button type="button" mat-raised-button color="primary" class="cancel-product" (click)="closeModel()">Cancel</button>
+                <button type="button" mat-raised-button color="warn" class="add-product-and-close" (click)="deleteProductItem()">Delete</button>
+            </div>
         </div>
     </div>
 </div>

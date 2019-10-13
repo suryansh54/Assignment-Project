@@ -227,7 +227,7 @@
     transform: translate(100%);
     transition: transform 0.2s linear;
     position: fixed;
-    width: 50%;
+    width: 40%;
     top: 0;
     right: 0;
     height: 100vh;
@@ -483,4 +483,38 @@ mat-form-field {
     color: #fff;
     line-height: 25px;
     cursor: pointer;
+}
+
+.product-section-header ul li:first-child a {
+    border-color: #F44336;
+    background: #717171;
+    color: #fff;
+}
+
+.minus-item.disabled, .plus-item.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.custom-product-options-menu ul li a .already-carted {
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #F44336;
+}
+
+.custom-product-options-menu ul li a.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.add-product-form.open:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: -160%;
+    height: 100vh;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.7);
+    width: calc(160%)
 }
